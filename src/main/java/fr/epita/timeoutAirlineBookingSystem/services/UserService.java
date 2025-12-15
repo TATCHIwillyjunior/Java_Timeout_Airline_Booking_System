@@ -2,6 +2,8 @@ package fr.epita.timeoutAirlineBookingSystem.services;
 
 import fr.epita.timeoutAirlineBookingSystem.domain.entity.User;
 import fr.epita.timeoutAirlineBookingSystem.domain.repo.UserRepo;
+import fr.epita.timeoutAirlineBookingSystem.web.dto.UserDTO;
+import fr.epita.timeoutAirlineBookingSystem.web.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -32,6 +34,21 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    public User updateUser(Long userId, UserDTO dto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found with id " + userId));
+
+        user.setFirstname(dto.getFirstname());
+        user.setLastname(dto.getLastname());
+        user.setEmail(dto.getEmail());
+        user.setAddress(dto.getAddress());
+        user.setPhoneNo(dto.getPhoneNo());
+        user.setBirthDate(dto.getBirthDate());
+
+        return userRepository.save(user);
+    }
+
 
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);

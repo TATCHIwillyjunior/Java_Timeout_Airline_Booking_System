@@ -4,6 +4,8 @@ import fr.epita.timeoutAirlineBookingSystem.domain.entity.Client;
 import fr.epita.timeoutAirlineBookingSystem.domain.entity.User;
 import fr.epita.timeoutAirlineBookingSystem.domain.repo.ClientRepo;
 import fr.epita.timeoutAirlineBookingSystem.domain.repo.UserRepo;
+import fr.epita.timeoutAirlineBookingSystem.web.dto.ClientDTO;
+import fr.epita.timeoutAirlineBookingSystem.web.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +41,21 @@ public class ClientService {
     public List<Client> getAllClients() {
         return clientRepository.findAll();
     }
+
+    public Client updateClient(Long clientId, ClientDTO dto) {
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() -> new NotFoundException("Client not found with id " + clientId));
+
+        client.setPassportNo(dto.getPassportNo());
+        if (dto.getUserId() != null) {
+            User user = userRepository.findById(dto.getUserId())
+                    .orElseThrow(() -> new NotFoundException("User not found with id " + dto.getUserId()));
+            client.setUser(user);
+        }
+
+        return clientRepository.save(client);
+    }
+
 
     public void deleteClient(Long clientId) {
         clientRepository.deleteById(clientId);

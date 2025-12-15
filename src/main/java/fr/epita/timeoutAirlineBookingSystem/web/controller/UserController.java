@@ -31,6 +31,10 @@ public class UserController {
         System.out.println("Fetching all users...");
         return userService.getAllUsers();
     }
+    @PutMapping("/{id}")
+    public User update(@PathVariable Long id, @RequestBody UserDTO dto) {
+        return userService.updateUser(id, dto);
+    }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {

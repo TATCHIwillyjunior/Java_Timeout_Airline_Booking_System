@@ -4,6 +4,8 @@ import fr.epita.timeoutAirlineBookingSystem.domain.entity.Employee;
 import fr.epita.timeoutAirlineBookingSystem.domain.entity.User;
 import fr.epita.timeoutAirlineBookingSystem.domain.repo.EmployeeRepo;
 import fr.epita.timeoutAirlineBookingSystem.domain.repo.UserRepo;
+import fr.epita.timeoutAirlineBookingSystem.web.dto.EmployeeDTO;
+import fr.epita.timeoutAirlineBookingSystem.web.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +41,24 @@ public class EmployeeService {
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
+
+    public Employee updateEmployee(Long employeeId, EmployeeDTO dto) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new NotFoundException("Employee not found with id " + employeeId));
+
+        employee.setEmployeeNo(dto.getEmployeeNo());
+        employee.setProfession(dto.getProfession());
+        employee.setTitle(dto.getTitle());
+
+        if (dto.getUserId() != null) {
+            User user = userRepository.findById(dto.getUserId())
+                    .orElseThrow(() -> new NotFoundException("User not found with id " + dto.getUserId()));
+            employee.setUser(user);
+        }
+
+        return employeeRepository.save(employee);
+    }
+
 
     public void deleteEmployee(Long employeeId) {
         employeeRepository.deleteById(employeeId);
