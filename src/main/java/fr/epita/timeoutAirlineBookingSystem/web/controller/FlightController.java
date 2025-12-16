@@ -58,10 +58,12 @@ public class FlightController {
     @GetMapping("/search")
     public List<Flight> searchFlights(
             @RequestParam String departureCity,
-            @RequestParam String arrivalCity) {
-        System.out.println("Searching flights from " + departureCity + " to " + arrivalCity);
-        return flightService.searchFlights(departureCity, arrivalCity);
+            @RequestParam String arrivalCity,
+            @RequestParam String departureDate) {
+        System.out.println("Searching flights from " + departureCity + " to " + arrivalCity + " on " + departureDate);
+        return flightService.searchFlights(departureCity, arrivalCity, departureDate);
     }
+
 
 
     @GetMapping("/{id}")

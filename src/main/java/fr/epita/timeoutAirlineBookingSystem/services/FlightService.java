@@ -22,12 +22,14 @@ public class FlightService {
         return flightRepository.save(flight);
     }
 
-    public List<Flight> searchFlights(String departureCity, String arrivalCity) {
+    public List<Flight> searchFlights(String departureCity, String arrivalCity, String departureDate) {
         return flightRepository.findAll().stream()
                 .filter(f -> f.getDepartureCity().equalsIgnoreCase(departureCity)
-                        && f.getArrivalCity().equalsIgnoreCase(arrivalCity))
+                        && f.getArrivalCity().equalsIgnoreCase(arrivalCity)
+                        && f.getDepartureHour().toLocalDate().toString().equals(departureDate))
                 .toList();
     }
+
 
     public Flight getFlight(Long id) {
         return flightRepository.findById(id)
