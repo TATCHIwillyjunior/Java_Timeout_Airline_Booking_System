@@ -35,7 +35,7 @@ export default function App() {
         </Toolbar>
       </AppBar>
 
-      <Container sx={{ mt: 4 }}>
+      <Container maxWidth="lg" sx={{ mt: 4 }}>
         <Box className="container">
           <Routes>
             <Route path="/" element={<HomePage />} />

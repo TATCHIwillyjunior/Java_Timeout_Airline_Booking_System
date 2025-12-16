@@ -3,40 +3,47 @@ body, html {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background: linear-gradient(to bottom, #e3f2fd, #ffffff); /* Sky blue to white */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
 }
 
 /* AppBar styling */
 .MuiAppBar-root {
-  background-color: #1976d2;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  background: linear-gradient(90deg, #1976d2, #1565c0);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Title styling */
+/* Typography */
+h2, h3, h4 {
+  color: #0d47a1;
+  margin-bottom: 20px;
+}
+
 .MuiTypography-h6 {
   font-weight: bold;
   letter-spacing: 1px;
+}
+
+/* Page container */
+.container {
+  padding: 30px;
+  background-color: rgba(255,255,255,0.97);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  min-height: 70vh;
 }
 
 /* Navigation buttons */
 .MuiButton-root {
   text-transform: none;
   font-weight: 500;
+  margin: 0 8px;
+  transition: all 0.3s ease;
 }
 
-/* Page container */
-.container {
-  padding: 30px;
-  background-color: rgba(255,255,255,0.95);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* Headings */
-h2, .MuiTypography-h5 {
-  color: #0d47a1;
-  margin-bottom: 20px;
+.MuiButton-root:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* Forms */
@@ -46,36 +53,138 @@ form {
   gap: 20px;
 }
 
-/* Inputs */
+/* Text fields */
 .MuiTextField-root {
   background-color: #fafafa;
   border-radius: 4px;
+  margin-bottom: 10px;
 }
 
-/* Buttons */
-button, .MuiButton-containedPrimary {
-  background-color: #1976d2;
-  color: white;
-  border-radius: 6px;
-  padding: 10px 16px;
+.MuiTextField-root input {
+  padding: 12px;
 }
 
-button:hover, .MuiButton-containedPrimary:hover {
-  background-color: #115293;
+/* Tables */
+.MuiTableContainer-root {
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* Rewards list */
-.MuiList-root {
-  background-color: #f9f9f9;
-  border-radius: 6px;
-  padding: 10px;
+.MuiTableHead-root {
+  background-color: #f5f5f5;
 }
 
-.MuiListItemText-primary {
+.MuiTableHead-root .MuiTableCell-root {
   font-weight: 600;
   color: #0d47a1;
 }
 
-.MuiListItemText-secondary {
-  color: #555;
+.MuiTableBody-root .MuiTableRow-root:hover {
+  background-color: #f9f9f9;
 }
+
+/* Buttons */
+.MuiButton-containedPrimary {
+  background: linear-gradient(90deg, #1976d2, #1565c0);
+  border-radius: 6px;
+  padding: 10px 24px;
+  transition: all 0.3s ease;
+}
+
+.MuiButton-containedPrimary:hover {
+  background: linear-gradient(90deg, #1565c0, #0d47a1);
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4);
+}
+
+.MuiButton-outlinedError {
+  border-color: #d32f2f;
+  color: #d32f2f;
+}
+
+.MuiButton-outlinedError:hover {
+  background-color: rgba(211, 47, 47, 0.04);
+  border-color: #d32f2f;
+}
+
+/* Dialogs */
+.MuiDialog-paper {
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+}
+
+/* Alert messages */
+.MuiAlert-root {
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.MuiAlert-standardError {
+  background-color: #ffebee;
+  border-left: 4px solid #d32f2f;
+}
+
+.MuiAlert-standardSuccess {
+  background-color: #e8f5e9;
+  border-left: 4px solid #388e3c;
+}
+
+.MuiAlert-standardInfo {
+  background-color: #e3f2fd;
+  border-left: 4px solid #1976d2;
+}
+
+/* Cards */
+.MuiCard-root {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.MuiCard-root:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+}
+
+/* Tabs */
+.MuiTabs-root {
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.MuiTab-root {
+  text-transform: none;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.MuiTab-root.Mui-selected {
+  color: #1976d2;
+  background-color: rgba(25, 118, 210, 0.05);
+  border-radius: 8px 8px 0 0;
+}
+
+/* Loading spinner */
+.MuiCircularProgress-root {
+  margin: 20px auto;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .MuiButton-root {
+    margin: 4px;
+    font-size: 0.875rem;
+  }
+
+  .MuiTableCell-root {
+    padding: 8px;
+    font-size: 0.875rem;
+  }
+}
+

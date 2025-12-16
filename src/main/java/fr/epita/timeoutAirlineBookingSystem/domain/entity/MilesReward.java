@@ -1,6 +1,8 @@
 package fr.epita.timeoutAirlineBookingSystem.domain.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import java.time.LocalDate;
 
 @Entity
@@ -12,11 +14,13 @@ public class MilesReward {
     @Column(name = "Miles_Rewards_Id")
     private Long milesRewardsId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "Client_Id", nullable = false)
     private Client client;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "Flight_Id", nullable = false)
     private Flight flight;
 

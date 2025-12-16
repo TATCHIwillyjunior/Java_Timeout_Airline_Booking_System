@@ -1,6 +1,8 @@
 package fr.epita.timeoutAirlineBookingSystem.domain.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "employees")
@@ -11,7 +13,8 @@ public class Employee {
     @Column(name = "Employee_Id")
     private Long employeeId;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "User_Id", unique = true, nullable = false,
             foreignKey = @ForeignKey(name = "fk_employee_user"))
     private User user;

@@ -1,15 +1,22 @@
-import axios from "axios";
+import apiClient from "./apiClient";
 
-const BASE_URL = "http://localhost:8080/api/flights";
+const ENDPOINT = "/flights";
 
-export const getFlights = () => axios.get(BASE_URL);
+export const getFlights = () => apiClient.get(ENDPOINT);
+
+export const getFlightById = (id) => apiClient.get(`${ENDPOINT}/${id}`);
+
 export const searchFlights = (departureCity, arrivalCity, departureDate) =>
-  axios.get(`${BASE_URL}/search`, {
-    params: { departureCity: "Tokyo",
-              arrivalCity: "Sydney",
-              departureDate: "2025-12-04"  // yyyy-mm-dd
-            }
+  apiClient.get(`${ENDPOINT}/search`, {
+    params: {
+      departureCity,
+      arrivalCity,
+      departureDate,
+    },
   });
-export const createFlight = (flight) => axios.post(BASE_URL, flight);
-export const updateFlight = (id, flight) => axios.put(`${BASE_URL}/${id}`, flight);
-export const deleteFlight = (id) => axios.delete(`${BASE_URL}/${id}`);
+
+export const createFlight = (flight) => apiClient.post(ENDPOINT, flight);
+
+export const updateFlight = (id, flight) => apiClient.put(`${ENDPOINT}/${id}`, flight);
+
+export const deleteFlight = (id) => apiClient.delete(`${ENDPOINT}/${id}`);
