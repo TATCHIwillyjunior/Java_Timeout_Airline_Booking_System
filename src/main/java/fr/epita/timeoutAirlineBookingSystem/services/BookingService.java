@@ -1,8 +1,12 @@
 package fr.epita.timeoutAirlineBookingSystem.services;
 
 import fr.epita.timeoutAirlineBookingSystem.domain.entity.Booking;
+import fr.epita.timeoutAirlineBookingSystem.domain.entity.Flight;
+import fr.epita.timeoutAirlineBookingSystem.domain.entity.Client;
 import fr.epita.timeoutAirlineBookingSystem.domain.entity.MilesReward;
 import fr.epita.timeoutAirlineBookingSystem.domain.repo.BookingRepo;
+import fr.epita.timeoutAirlineBookingSystem.domain.repo.ClientRepo;
+import fr.epita.timeoutAirlineBookingSystem.domain.repo.FlightRepo;
 import fr.epita.timeoutAirlineBookingSystem.web.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +15,21 @@ import java.util.List;
 
 @Service
 public class BookingService {
+
     private final BookingRepo bookingRepository;
     private final MilesRewardService milesRewardService;
+    private final FlightRepo flightRepository;
+    private final ClientRepo clientRepository;
 
-
-    public BookingService(BookingRepo bookingRepository, MilesRewardService milesRewardService) {
+    // ✅ Constructor injection for all required repos/services
+    public BookingService(BookingRepo bookingRepository,
+                          MilesRewardService milesRewardService,
+                          FlightRepo flightRepository,
+                          ClientRepo clientRepository) {
         this.bookingRepository = bookingRepository;
         this.milesRewardService = milesRewardService;
+        this.flightRepository = flightRepository;
+        this.clientRepository = clientRepository;
     }
 
     public Booking bookSeat(Booking booking) {
@@ -50,7 +62,15 @@ public class BookingService {
         return savedBooking;
     }
 
+    public Flight getFlightById(Long id) {
+        return flightRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Flight not found with ID: " + id));
+    }
 
+    public Client getClientById(Long id) {
+        return clientRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Client not found with ID: " + id));
+    }
 
     public Booking getBooking(Long id) {
         return bookingRepository.findById(id)

@@ -41,42 +41,43 @@ public class MilesRewardService {
     }
 
     // Update reward details (date, discount code)
-    public MilesReward updateReward(Long id, MilesReward updated) {
+    public MilesReward updateReward(Long id, LocalDate dateOffer, String discountCode) {
         MilesReward reward = getMilesReward(id);
-        reward.setDateOffer(updated.getDateOffer());
-        reward.setDiscountCode(updated.getDiscountCode());
+        if (dateOffer != null) {
+            reward.setDateOffer(dateOffer);
+        }
+        if (discountCode != null) {
+            reward.setDiscountCode(discountCode);
+        }
         return milesRewardRepository.save(reward);
     }
 
+
     // Delete a reward
     public void deleteMilesReward(Long id) {
-        milesRewardRepository.deleteById(id);
+        MilesReward reward = getMilesReward(id); // throws NotFoundException if missing
+        milesRewardRepository.delete(reward);
     }
+
 
     // Business logic: check if client qualifies for discount
     public void checkAndGenerateDiscount(Long clientId) {
         int currentYear = LocalDate.now().getYear();
 
-        long flightsThisYear = milesRewardRepository.findAll().stream()
+        List<MilesReward> rewardsThisYear = milesRewardRepository.findAll().stream()
                 .filter(r -> r.getClient().getClientId().equals(clientId)
                         && r.getDateOffer().getYear() == currentYear)
-                .count();
+                .toList();
 
-        if (flightsThisYear == 3) {
-            // Generate random discount code
+        if (rewardsThisYear.size() == 3) {
             String discountCode = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
 
-            // Update the latest reward with discount
-            MilesReward reward = milesRewardRepository.findAll().stream()
-                    .filter(r -> r.getClient().getClientId().equals(clientId)
-                            && r.getDateOffer().getYear() == currentYear)
-                    .reduce((first, second) -> second) // get last reward
-                    .orElseThrow(() -> new NotFoundException("No reward found"));
-
-            reward.setDiscountCode(discountCode);
-            milesRewardRepository.save(reward);
+            MilesReward latestReward = rewardsThisYear.get(rewardsThisYear.size() - 1);
+            latestReward.setDiscountCode(discountCode);
+            milesRewardRepository.save(latestReward);
 
             System.out.println("Discount code generated for client " + clientId + ": " + discountCode);
         }
     }
+
 }

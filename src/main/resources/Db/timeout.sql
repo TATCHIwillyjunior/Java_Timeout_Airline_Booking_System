@@ -1,3 +1,7 @@
+-- Create DATABASE
+CREATE DATABASE timeout_airline_booking NOT EXISTS;
+
+
 CREATE TABLE users (
     User_Id BIGSERIAL PRIMARY KEY,
     Firstname VARCHAR(100) NOT NULL,

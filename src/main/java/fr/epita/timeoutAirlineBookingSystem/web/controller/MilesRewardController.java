@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/miles-rewards")
 public class MilesRewardController {
+
     private final MilesRewardService milesRewardService;
 
     public MilesRewardController(MilesRewardService milesRewardService) {
@@ -39,14 +40,7 @@ public class MilesRewardController {
     // Update reward (e.g. discount code if needed)
     @PutMapping("/{id}")
     public MilesReward update(@PathVariable Long id, @RequestBody MilesRewardDTO dto) {
-        MilesReward updated = new MilesReward(
-                dto.getMilesRewardsId(),
-                null, // client is set internally
-                null, // flight is set internally
-                dto.getDateOffer(),
-                dto.getDiscountCode()
-        );
-        return milesRewardService.updateReward(id, updated);
+        return milesRewardService.updateReward(id, dto.getDateOffer(), dto.getDiscountCode());
     }
 
     // Delete reward

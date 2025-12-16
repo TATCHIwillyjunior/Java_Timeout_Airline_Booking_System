@@ -1,6 +1,8 @@
 package fr.epita.timeoutAirlineBookingSystem.web.controller;
 
 import fr.epita.timeoutAirlineBookingSystem.domain.entity.Booking;
+import fr.epita.timeoutAirlineBookingSystem.domain.entity.Flight;
+import fr.epita.timeoutAirlineBookingSystem.domain.entity.Client;
 import fr.epita.timeoutAirlineBookingSystem.web.dto.BookingDTO;
 import fr.epita.timeoutAirlineBookingSystem.services.BookingService;
 import org.springframework.web.bind.annotation.*;
@@ -10,13 +12,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {
+
     private final BookingService bookingService;
-    public BookingController(BookingService bookingService) { this.bookingService = bookingService; }
+
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
 
     @PostMapping
     public Booking create(@RequestBody BookingDTO dto) {
         System.out.println("Received booking for client: " + dto.getClientId());
-        Booking booking = new Booking(dto.getBookingId(), null, null, dto.getTypeOfSeat(), dto.getBookedAt());
+
+        Flight flight = bookingService.getFlightById(dto.getFlightId());
+        Client client = bookingService.getClientById(dto.getClientId());
+
+        Booking booking = new Booking(dto.getBookingId(), flight, client,
+                dto.getTypeOfSeat(), dto.getBookedAt());
         return bookingService.bookSeat(booking);
     }
 
@@ -33,7 +44,11 @@ public class BookingController {
 
     @PutMapping("/{id}")
     public Booking update(@PathVariable Long id, @RequestBody BookingDTO dto) {
-        Booking updated = new Booking(dto.getBookingId(), null, null, dto.getTypeOfSeat(), dto.getBookedAt());
+        Flight flight = bookingService.getFlightById(dto.getFlightId());
+        Client client = bookingService.getClientById(dto.getClientId());
+
+        Booking updated = new Booking(dto.getBookingId(), flight, client,
+                dto.getTypeOfSeat(), dto.getBookedAt());
         return bookingService.updateBooking(id, updated);
     }
 
