@@ -14,6 +14,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/flights")
 public class FlightController {

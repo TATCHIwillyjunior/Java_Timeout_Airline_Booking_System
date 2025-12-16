@@ -1,0 +1,81 @@
+/* Global reset and font */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(to bottom, #e3f2fd, #ffffff); /* Sky blue to white */
+  min-height: 100vh;
+}
+
+/* AppBar styling */
+.MuiAppBar-root {
+  background-color: #1976d2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Title styling */
+.MuiTypography-h6 {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Navigation buttons */
+.MuiButton-root {
+  text-transform: none;
+  font-weight: 500;
+}
+
+/* Page container */
+.container {
+  padding: 30px;
+  background-color: rgba(255,255,255,0.95);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+h2, .MuiTypography-h5 {
+  color: #0d47a1;
+  margin-bottom: 20px;
+}
+
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Inputs */
+.MuiTextField-root {
+  background-color: #fafafa;
+  border-radius: 4px;
+}
+
+/* Buttons */
+button, .MuiButton-containedPrimary {
+  background-color: #1976d2;
+  color: white;
+  border-radius: 6px;
+  padding: 10px 16px;
+}
+
+button:hover, .MuiButton-containedPrimary:hover {
+  background-color: #115293;
+}
+
+/* Rewards list */
+.MuiList-root {
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.MuiListItemText-primary {
+  font-weight: 600;
+  color: #0d47a1;
+}
+
+.MuiListItemText-secondary {
+  color: #555;
+}
