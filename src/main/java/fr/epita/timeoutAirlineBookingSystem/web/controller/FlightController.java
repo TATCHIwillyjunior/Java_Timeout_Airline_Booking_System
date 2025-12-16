@@ -55,6 +55,14 @@ public class FlightController {
         return flightService.scheduleFlight(flight);
     }
 
+    @GetMapping("/search")
+    public List<Flight> searchFlights(
+            @RequestParam String departureCity,
+            @RequestParam String arrivalCity) {
+        System.out.println("Searching flights from " + departureCity + " to " + arrivalCity);
+        return flightService.searchFlights(departureCity, arrivalCity);
+    }
+
 
     @GetMapping("/{id}")
     public Flight get(@PathVariable Long id) {
@@ -94,6 +102,7 @@ public class FlightController {
 
         return flightService.updateFlight(id, updated);
     }
+
 
 
     @DeleteMapping("/{id}")
